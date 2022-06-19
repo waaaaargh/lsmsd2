@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  database:
+    image: docker.io/library/postgres:14.3-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./fixtures/db_user.sh:/docker-entrypoint-initdb.d/10_users.sh"
+      - "./initdb.sql:/docker-entrypoint-initdb.d/20_schema.sql"
+      - "./fixtures/sample_data.sql:/docker-entrypoint-initdb.d/30_sample_data.sql"
+      # - "./fixtures/stress_test.sh:/docker-entrypoint-initdb.d/40_stress_test.sh"
+    environment:
+      - POSTGRES_PASSWORD=asdfasdf
